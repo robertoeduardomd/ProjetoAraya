@@ -12,7 +12,7 @@ body {
     flex-direction: column;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(45deg, black, orange, yellow);
+    background: linear-gradient(45deg, black, orange, yellow, red);
     color: rgb(3, 3, 88);
     background-size: 500%, 100%;
     animation: degradeanimacao 8s infinite alternate;
