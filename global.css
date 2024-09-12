@@ -47,5 +47,136 @@ button {
 
 button:hover {
     transform: scale(1.2);
-    box-shadow: 0 0 20px blue;
+    box-shadow: 0 0 20px white;
+}
+
+.btnvoltar {
+
+
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50px;
+    left: 50px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: #E02130;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .2s linear;
+    z-index: 99;
+
+}
+
+.btnvoltar:hover {
+    transform: scale(1.2);
+}
+
+input {
+    border-radius: 30px;
+    width: 300px;
+    height: 30px;
+    outline: none;
+    border: 2px solid purple;
+    font-size: 15px;
+    left: 5px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 20px;
+}
+
+label {
+    position: absolute;
+    color: purple;
+    font-weight: 500;
+    top: 7px;
+    left: 20px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.linkpainel {
+    text-decoration: none;
+    width: 300px;
+    height: 100px;
+    border: 2px solid white;
+    border-radius: 30px;
+    background: radial-gradient(red, purple, blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: pink;
+    transition: .2s;
+}
+
+.linkpainel:hover {
+    transform: scale(1.2);
+    background: radial-gradient(blue, red, purple);
+}
+
+.campo {
+    position: relative;
+}
+
+input:focus~label,
+input:valid~label {
+    top: -15px;
+    font-size: 13px;
+    color: white;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+    border-collapse: collapse;
+    color: white;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+    background: rgb(50, 1, 129);
+}
+
+th {
+
+    background: linear-gradient(blue, black);
+}
+
+.preferencial {
+    background-color: red;
+    color: white;
+}
+
+.normal {
+    background-color: lightgray;
+}
+
+.virtual {
+    background-color: lightblue;
 }
