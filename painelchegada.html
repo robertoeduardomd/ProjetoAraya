@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel de espera</title>
+    <link rel="stylesheet" href="global.css" />
+  </head>
+  <body>
+    <a href="atendimentopresencial.html" class="btnvoltar">↩</a>
+    <h1>Painel de Espera</h1>
+
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Horário(chegada)</th>
+          <th>Senha</th>
+          <th>Tipo</th>
+        </tr>
+      </thead>
+      <tbody id="tabelaChegadas">
+        <!-- Linhas serão inseridas aqui pelo JavaScript -->
+      </tbody>
+    </table>
+
+    <script>
+      // Obtém as chegadas do Local Storage e exibe na tabela
+      let chegadas = JSON.parse(localStorage.getItem("chegadas")) || [];
+      let tabela = document.getElementById("tabelaChegadas");
+
+      chegadas.forEach((chegada) => {
+        let linha = document.createElement("tr");
+        let classe = ""; // Define a variável classe inicialmente
+
+        // Define a classe e o estilo com base no tipo de atendimento
+        if (chegada.tipo === "Preferencial") {
+          classe = "preferencial";
+          linha.style.background =
+            "linear-gradient(orange,white,white,white,orange)";
+          linha.style.color = "blue";
+        } else if (chegada.tipo === "Normal") {
+          classe = "normal";
+          linha.style.background = "linear-gradient(blue,#007fff)";
+        } else if (chegada.tipo === "Virtual") {
+          classe = "virtual";
+          linha.style.background = "linear-gradient(black,green)";
+        }
+
+        linha.className = classe; // Aplica a classe à linha
+        linha.innerHTML = `
+          <td>${chegada.nome}</td>
+          <td>${chegada.cpf}</td>
+          <td>${chegada.horario}</td>
+          <td>${chegada.senha}</td>
+          <td>${chegada.tipo}</td>
+        `;
+        tabela.appendChild(linha);
+      });
+    </script>
+  </body>
+</html>

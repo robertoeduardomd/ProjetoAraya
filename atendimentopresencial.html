@@ -10,12 +10,23 @@
     <h1>Atendimento presêncial</h1>
     <h2>Retirar senha</h2>
     <br /><br />
-    <button onclick="senhanormal" >Atendimento Normal</button>
-    <br />
-    <button onclick='senhapreferecial'>Atendimento Preferêncial</button>
-    <br />
-    <button onclick='senhavirtual'>Atendimento virtual</button>
 
-    <script src="script.js"></script>
+    <form action="atendnormal.html" method="get">
+      <button type="submit">Atendimento Normal</button>
+    </form>
+    <br />
+
+    <!-- Formulário que redireciona para Atendimento Preferencial -->
+    <form action="atendpref.html" method="get">
+      <button type="submit">Atendimento Preferencial</button>
+    </form>
+    <br />
+
+    <!-- Formulário que redireciona para Atendimento Virtual -->
+    <form action="atendvirtual.html" method="get">
+      <button type="submit">Atendimento Virtual</button>
+    </form>
+
+    <a class="linkpainel" href="painelchegada.html">Painel de espera</a>
   </body>
 </html>
