@@ -55,10 +55,10 @@ button:hover {
     box-shadow: 0 0 20px white;
 }
 
-.btnremove {
+.btnchamar {
     width: 100px;
     height: 30px;
-    color: red;
+    color: green;
     background: transparent;
 }
 

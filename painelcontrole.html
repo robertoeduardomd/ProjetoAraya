@@ -17,6 +17,7 @@
     <table border="1">
       <thead>
         <tr>
+          <th>situacao</th>
           <th>Nome</th>
           <th>CPF</th>
           <th>Horário(chegada)</th>
@@ -40,30 +41,31 @@
         let classe = ""; // Define a variável classe inicialmente
 
         // Define a classe e o estilo com base no tipo de atendimento
-        if (chegada.tipo === "Preferencial") {
-          classe = "preferencial";
-          linha.style.background =
-            "linear-gradient(blue,white,white,white,orange)";
-          linha.style.color = "blue";
-        } else if (chegada.tipo === "Normal") {
-          classe = "normal";
-          linha.style.background = "linear-gradient(blue,#007fff)";
-        } else if (chegada.tipo === "Virtual") {
-          classe = "virtual";
-          linha.style.background = "linear-gradient(black,green)";
+        if (chegada.situacao === "espera") {
+          linha.style.background = "linear-gradient(black,orange)";
+          linha.style.color = "white";
+        } else if (chegada.situacao === "atendido") {
+          linha.style.background = "linear-gradient(blue,#047fff)";
+        } else if (chegada.situacao === "naoatendido") {
+          linha.style.background = "linear-gradient(black,red)";
         }
 
         linha.className = classe; // Aplica a classe à linha
         linha.innerHTML = `
+
+          <td>${chegada.situacao}</td>
           <td>${chegada.nome}</td>
           <td>${chegada.cpf}</td>
-          <td>${chegada.horario}</td>
+          <td>${chegada.dataHora}</td>
           <td>${chegada.senha}</td>
           <td>${chegada.tipo}</td>
-          <td><button class="btnremove"><i class="bi bi-x-octagon"></i></button></td>
+          <td><button class="btnchamar" onclick="chamarsenha()"><i class="bi bi-check-circle"></i></button></td>
         `;
         tabela.appendChild(linha);
       });
+      function chamarsenha() {
+        alert("sua senha foi chamada");
+      }
     </script>
   </body>
 </html>
