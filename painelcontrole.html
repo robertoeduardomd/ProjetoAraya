@@ -12,17 +12,17 @@
   </head>
   <body>
     <a href="atendimentopresencial.html" class="btnvoltar">↩</a>
-    <h1>Painel de Espera</h1>
+    <h1>Painel de controle</h1>
 
     <table border="1">
       <thead>
         <tr>
-          <th>situacao</th>
           <th>Nome</th>
-
-          <th>Data e Horário(chegada)</th>
+          <th>CPF</th>
+          <th>Horário(chegada)</th>
           <th>Senha</th>
           <th>Tipo</th>
+          <th>chamar</th>
         </tr>
       </thead>
       <tbody id="tabelaChegadas">
@@ -40,7 +40,7 @@
         let classe = ""; // Define a variável classe inicialmente
 
         // Define a classe e o estilo com base no tipo de atendimento
-        if (chegada.dataHora === "Preferencial") {
+        if (chegada.tipo === "Preferencial") {
           classe = "preferencial";
           linha.style.background =
             "linear-gradient(blue,white,white,white,orange)";
@@ -55,13 +55,12 @@
 
         linha.className = classe; // Aplica a classe à linha
         linha.innerHTML = `
-        
-          <td>${chegada.situacao}<i class="bi bi-clock-history"></i></td>
-        
           <td>${chegada.nome}</td>
-          <td>${chegada.dataHora}</td>
+          <td>${chegada.cpf}</td>
+          <td>${chegada.horario}</td>
           <td>${chegada.senha}</td>
           <td>${chegada.tipo}</td>
+          <td><button class="btnremove"><i class="bi bi-x-octagon"></i></button></td>
         `;
         tabela.appendChild(linha);
       });

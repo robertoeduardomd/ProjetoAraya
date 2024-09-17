@@ -26,7 +26,7 @@
         type="file"
         id="comprovante"
         name="comprovante"
-        required
+        
       /><br /><br />
       
       <button type="submit">Retirar Senha</button>
@@ -37,8 +37,8 @@
         e.preventDefault();
         let nome = document.getElementById('nome').value;
         let cpf = document.getElementById('cpf').value;
-        let horario = new Date().toLocaleTimeString();
-  
+       
+        const dataHora = new Date().toLocaleString();
         // Obtém o número da última senha ou inicializa com 0
         let ultimoNumero = parseInt(localStorage.getItem('ultimoNumeroSenha')) || 0;
   
@@ -50,7 +50,7 @@
   
         // Salva os dados no Local Storage
         let chegadas = JSON.parse(localStorage.getItem('chegadas')) || [];
-        chegadas.push({ nome, cpf, horario, senha: novaSenha, tipo: 'Preferencial' });
+        chegadas.push({ nome, cpf, dataHora, senha: novaSenha, tipo: 'Preferencial', situacao: 'espera' });
         localStorage.setItem('chegadas', JSON.stringify(chegadas));
   
         alert(`Usuário registrado com sucesso! Sua senha é: ${novaSenha}`);
