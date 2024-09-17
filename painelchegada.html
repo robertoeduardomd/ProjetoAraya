@@ -40,17 +40,13 @@
         let classe = ""; // Define a variável classe inicialmente
 
         // Define a classe e o estilo com base no tipo de atendimento
-        if (chegada.dataHora === "Preferencial") {
-          classe = "preferencial";
-          linha.style.background =
-            "linear-gradient(blue,white,white,white,orange)";
-          linha.style.color = "blue";
-        } else if (chegada.tipo === "Normal") {
-          classe = "normal";
-          linha.style.background = "linear-gradient(blue,#007fff)";
-        } else if (chegada.tipo === "Virtual") {
-          classe = "virtual";
-          linha.style.background = "linear-gradient(black,green)";
+        if (chegada.situacao === "espera") {
+          linha.style.background = "linear-gradient(black,orange)";
+          linha.style.color = "white";
+        } else if (chegada.situacao === "atendido") {
+          linha.style.background = "linear-gradient(blue,#047fff)";
+        } else if (chegada.situacao === "naoatendido") {
+          linha.style.background = "linear-gradient(black,red)";
         }
 
         linha.className = classe; // Aplica a classe à linha
