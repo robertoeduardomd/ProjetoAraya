@@ -21,6 +21,7 @@
           <th>Nome</th>
 
           <th>Data e Horário(chegada)</th>
+          <th>Data e Horário(atendimento)</th>
           <th>Senha</th>
           <th>Tipo</th>
         </tr>
@@ -37,6 +38,7 @@
 
       chegadas.forEach((chegada) => {
         let linha = document.createElement("tr");
+        let tdtipo = document.querySelector("tdtipo");
         let classe = ""; // Define a variável classe inicialmente
 
         // Define a classe e o estilo com base no tipo de atendimento
@@ -56,8 +58,9 @@
         
           <td>${chegada.nome}</td>
           <td>${chegada.dataHora}</td>
+          <td>${chegada.horarioAtendimento}</td>
           <td>${chegada.senha}</td>
-          <td>${chegada.tipo}</td>
+          <td class="tdtipo">${chegada.tipo}</td>
         `;
         tabela.appendChild(linha);
       });

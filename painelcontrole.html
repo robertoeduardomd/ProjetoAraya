@@ -21,51 +21,66 @@
           <th>Nome</th>
           <th>CPF</th>
           <th>Horário(chegada)</th>
+          <th>Data e Hora(Atendimento)</th>
           <th>Senha</th>
           <th>Tipo</th>
           <th>chamar</th>
         </tr>
       </thead>
-      <tbody id="tabelaChegadas">
-        <!-- Linhas serão inseridas aqui pelo JavaScript -->
-      </tbody>
+      <tbody id="tabelaChegadas"></tbody>
     </table>
 
     <script>
-      // Obtém as chegadas do Local Storage e exibe na tabela
       let chegadas = JSON.parse(localStorage.getItem("chegadas")) || [];
       let tabela = document.getElementById("tabelaChegadas");
+      function atualizartabela() {
+        tabela.innerHTML = "";
+        chegadas.forEach((chegada) => {
+          let linha = document.createElement("tr");
+          let classe = ""; // Define a variável classe inicialmente
 
-      chegadas.forEach((chegada) => {
-        let linha = document.createElement("tr");
-        let classe = ""; // Define a variável classe inicialmente
+          // Define a classe e o estilo com base no tipo de atendimento
+          if (chegada.situacao === "espera") {
+            linha.style.background = "linear-gradient(black,orange)";
+            linha.style.color = "white";
+          } else if (chegada.situacao === "atendido") {
+            linha.style.background = "linear-gradient(blue,#047fff)";
+          } else if (chegada.situacao === "naoatendido") {
+            linha.style.background = "linear-gradient(black,red)";
+          }
 
-        // Define a classe e o estilo com base no tipo de atendimento
-        if (chegada.situacao === "espera") {
-          linha.style.background = "linear-gradient(black,orange)";
-          linha.style.color = "white";
-        } else if (chegada.situacao === "atendido") {
-          linha.style.background = "linear-gradient(blue,#047fff)";
-        } else if (chegada.situacao === "naoatendido") {
-          linha.style.background = "linear-gradient(black,red)";
-        }
-
-        linha.className = classe; // Aplica a classe à linha
-        linha.innerHTML = `
+          linha.className = classe; // Aplica a classe à linha
+          linha.innerHTML = `
 
           <td>${chegada.situacao}</td>
           <td>${chegada.nome}</td>
           <td>${chegada.cpf}</td>
           <td>${chegada.dataHora}</td>
+          <td>${chegada.horarioAtendimento}</td>
           <td>${chegada.senha}</td>
           <td>${chegada.tipo}</td>
-          <td><button class="btnchamar" onclick="chamarsenha()"><i class="bi bi-check-circle"></i></button></td>
+           <td><button class="btnchamar" onclick="chamarSenha(${chegada.senha})"><i class="bi bi-check-circle"></i></button></td>
         `;
-        tabela.appendChild(linha);
-      });
-      function chamarsenha() {
-        alert("sua senha foi chamada");
+          tabela.appendChild(linha);
+        });
       }
+      function chamarSenha(senha) {
+        // Encontra a pessoa pelo número da senha
+        let chegada = chegadas.find((item) => item.senha === senha);
+
+        if (chegada) {
+          // Atualiza a situação para "atendido"
+          chegada.situacao = "atendido";
+          // Define o horário de atendimento
+          chegada.horarioAtendimento = new Date().toLocaleString();
+
+          // Atualiza o local storage
+          localStorage.setItem("chegadas", JSON.stringify(chegadas));
+          atualizartabela();
+          // Redireciona para a página de atendidos
+        }
+      }
+      atualizartabela();
     </script>
   </body>
 </html>
