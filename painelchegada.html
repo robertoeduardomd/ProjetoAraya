@@ -38,10 +38,9 @@
 
       chegadas.forEach((chegada) => {
         let linha = document.createElement("tr");
-        let tdtipo = document.querySelector("tdtipo");
+
         let classe = ""; // Define a variável classe inicialmente
 
-        // Define a classe e o estilo com base no tipo de atendimento
         if (chegada.situacao === "espera") {
           linha.style.background = "linear-gradient(black,orange)";
           linha.style.color = "white";
@@ -49,6 +48,16 @@
           linha.style.background = "linear-gradient(blue,#047fff)";
         } else if (chegada.situacao === "naoatendido") {
           linha.style.background = "linear-gradient(black,red)";
+        }
+
+        let iconetipo = "";
+        if (chegada.tipo === "Preferencial") {
+          iconetipo =
+            '<i class="bi bi-puzzle-fill"></i> <i class="bi bi-person-wheelchair"></i>';
+        } else if (chegada.tipo === "virtual") {
+          iconetipo = '<i class="bi bi-laptop"></i>';
+        } else {
+          iconetipo = '<i class="bi bi-person-fill"></i>'; // Ícone padrão para outros tipos
         }
 
         linha.className = classe; // Aplica a classe à linha
@@ -60,7 +69,7 @@
           <td> ${chegada.dataHora}</td>
           <td> ${chegada.horarioAtendimento}</td>
           <td> ${chegada.senha} </td>
-          <td class="tdtipo">${chegada.tipo}</td>
+          <td>${iconetipo} ${chegada.tipo}</td>
         `;
         tabela.appendChild(linha);
       });
