@@ -50,7 +50,8 @@
   
         // Salva os dados no Local Storage
         let chegadas = JSON.parse(localStorage.getItem('chegadas')) || [];
-        chegadas.push({ nome, cpf, dataHora, senha: novaSenha, tipo: 'Preferencial', situacao: 'espera' });
+        chegadas.push({ nome, cpf, dataHora,
+          horarioAtendimento: "ainda não foi atendido(a)", senha: novaSenha, tipo: 'Preferencial', situacao: 'espera' });
         localStorage.setItem('chegadas', JSON.stringify(chegadas));
   
         alert(`Usuário registrado com sucesso! Sua senha é: ${novaSenha}`);
