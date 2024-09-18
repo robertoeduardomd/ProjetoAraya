@@ -11,7 +11,7 @@
     />
   </head>
   <body>
-    <a href="atendimentopresencial.html" class="btnvoltar">↩</a>
+    <a href="index.html" class="btnvoltar">↩</a>
     <h1>Painel de controle</h1>
 
     <table border="1">
@@ -35,20 +35,31 @@
       let tabela = document.getElementById("tabelaChegadas");
       function atualizartabela() {
         tabela.innerHTML = "";
-        chegadas.forEach((chegada) => {
+        chegadas.reverse().forEach((chegada) => {
           let linha = document.createElement("tr");
           let classe = ""; // Define a variável classe inicialmente
 
-          // Define a classe e o estilo com base no tipo de atendimento
+          let iconesituacao = "";
+
           if (chegada.situacao === "espera") {
             linha.style.background = "linear-gradient(black,orange)";
             linha.style.color = "white";
           } else if (chegada.situacao === "atendido") {
+            iconesituacao = '<i class="bi bi-person-check-fill"></i>';
             linha.style.background = "linear-gradient(blue,#047fff)";
           } else if (chegada.situacao === "naoatendido") {
             linha.style.background = "linear-gradient(black,red)";
           }
 
+          let iconetipo = "";
+          if (chegada.tipo === "Preferencial") {
+            iconetipo =
+              '<i class="bi bi-puzzle-fill"></i> <i class="bi bi-person-wheelchair"></i>';
+          } else if (chegada.tipo === "virtual") {
+            iconetipo = '<i class="bi bi-laptop"></i>';
+          } else {
+            iconetipo = '<i class="bi bi-person-fill"></i>'; // Ícone padrão para outros tipos
+          }
           linha.className = classe; // Aplica a classe à linha
           linha.innerHTML = `
 
@@ -58,7 +69,8 @@
           <td>${chegada.dataHora}</td>
           <td>${chegada.horarioAtendimento}</td>
           <td>${chegada.senha}</td>
-          <td>${chegada.tipo}</td>
+          <td>${iconetipo} ${chegada.tipo}</td>
+          
            <td><button class="btnchamar" onclick="chamarSenha(${chegada.senha})"><i class="bi bi-check-circle"></i></button></td>
         `;
           tabela.appendChild(linha);

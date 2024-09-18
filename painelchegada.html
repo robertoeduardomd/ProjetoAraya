@@ -11,7 +11,7 @@
     />
   </head>
   <body>
-    <a href="atendimentopresencial.html" class="btnvoltar">↩</a>
+    <a href="index.html" class="btnvoltar">↩</a>
     <h1>Painel de Espera</h1>
 
     <table border="1">
@@ -20,9 +20,9 @@
           <th>situacao</th>
           <th>Nome</th>
 
-          <th>Data e Horário(chegada)</th>
-          <th>Data e Horário(atendimento)</th>
-          <th>Senha</th>
+          <th><i class="bi bi-clock-history"></i> Data e Horário(chegada)</th>
+          <th><i class="bi bi-clock-fill"></i> Data e Horário(atendimento)</th>
+          <th><i class="bi bi-ticket-perforated"></i> Senha</th>
           <th>Tipo</th>
         </tr>
       </thead>
@@ -36,7 +36,7 @@
       let chegadas = JSON.parse(localStorage.getItem("chegadas")) || [];
       let tabela = document.getElementById("tabelaChegadas");
 
-      chegadas.forEach((chegada) => {
+      chegadas.reverse().forEach((chegada) => {
         let linha = document.createElement("tr");
         let tdtipo = document.querySelector("tdtipo");
         let classe = ""; // Define a variável classe inicialmente
@@ -54,12 +54,12 @@
         linha.className = classe; // Aplica a classe à linha
         linha.innerHTML = `
         
-          <td>${chegada.situacao}<i class="bi bi-clock-history"></i></td>
+          <td>${chegada.situacao}</td>
         
           <td>${chegada.nome}</td>
-          <td>${chegada.dataHora}</td>
-          <td>${chegada.horarioAtendimento}</td>
-          <td>${chegada.senha}</td>
+          <td> ${chegada.dataHora}</td>
+          <td> ${chegada.horarioAtendimento}</td>
+          <td> ${chegada.senha} </td>
           <td class="tdtipo">${chegada.tipo}</td>
         `;
         tabela.appendChild(linha);
