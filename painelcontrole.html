@@ -35,7 +35,7 @@
       let tabela = document.getElementById("tabelaChegadas");
       function atualizartabela() {
         tabela.innerHTML = "";
-        chegadas.reverse().forEach((chegada) => {
+        chegadas.forEach((chegada) => {
           let linha = document.createElement("tr");
           let classe = ""; // Define a variável classe inicialmente
 

@@ -36,7 +36,7 @@
       let chegadas = JSON.parse(localStorage.getItem("chegadas")) || [];
       let tabela = document.getElementById("tabelaChegadas");
 
-      chegadas.reverse().forEach((chegada) => {
+      chegadas.forEach((chegada) => {
         let linha = document.createElement("tr");
         let tdtipo = document.querySelector("tdtipo");
         let classe = ""; // Define a variável classe inicialmente
