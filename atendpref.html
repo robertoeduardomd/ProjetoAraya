@@ -11,6 +11,7 @@
 
   </head>
   <body>
+    <audio id="audioretirar" src="retirarsenhavoz.mp3"></audio>
     <h1>Atendimento Preferencial</h1>
     <br><br>
     <a href="index.html" class="btnvoltar">↩</a>
@@ -33,7 +34,7 @@
         
       /><br /><br />
       
-      <button class="btn" type="submit">Retirar Senha</button>
+      <button class="btn" type="submit" onmouseover="playAudio('rs')">Retirar Senha</button>
     </form>
 
     <script>
@@ -64,6 +65,16 @@
         // Redirecionar para a página do painel após submeter
         window.location = 'painelchegada.html';
       });
+      function playAudio(tipoaudio) {
+        let audio;
+        if (tipoaudio === "rs") {
+          audio = document.getElementById("audioretirar");
+        }
+        if (audio) {
+          audio.currentTime = 0; // Reseta o áudio para tocar do início
+          audio.play();
+        }
+      }
     </script>
   </body>
 </html>
