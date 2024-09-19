@@ -20,6 +20,10 @@ body {
     cursor: url(inject4.png), cell;
 }
 
+h1 {
+    font-family: "New Amsterdam", sans-serif;
+    font-size: 50px;
+}
 
 @keyframes degradeanimacao {
 
