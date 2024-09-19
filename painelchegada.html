@@ -11,6 +11,7 @@
     />
   </head>
   <body>
+    <audio id="audiowii" src="wiimenu.mp3" autoplay playsinline></audio>
     <img
       style="position: absolute; z-index: -1; opacity: 50%; object-fit: cover"
       width="100%"
@@ -69,9 +70,9 @@
 
         linha.className = classe; // Aplica a classe à linha
         linha.innerHTML = `
-        
+
           <td>${chegada.situacao}</td>
-        
+
           <td>${chegada.nome}</td>
           <td> ${chegada.dataHora}</td>
           <td> ${chegada.horarioAtendimento}</td>
@@ -80,6 +81,17 @@
         `;
         tabela.appendChild(linha);
       });
+
+      window.onload = function () {
+        let audio = document.getElementById("audiowii");
+
+        if (audio) {
+          document.body.addEventListener("click", function () {
+            audio.currentTime = 0;
+            audio.play();
+          });
+        }
+      };
     </script>
   </body>
 </html>

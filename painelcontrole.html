@@ -37,7 +37,7 @@
         tabela.innerHTML = "";
         chegadas.forEach((chegada) => {
           let linha = document.createElement("tr");
-          let classe = ""; // Define a variável classe inicialmente
+          let classe = "";
 
           let iconesituacao = "";
 
@@ -58,9 +58,9 @@
           } else if (chegada.tipo === "virtual") {
             iconetipo = '<i class="bi bi-laptop"></i>';
           } else {
-            iconetipo = '<i class="bi bi-person-fill"></i>'; // Ícone padrão para outros tipos
+            iconetipo = '<i class="bi bi-person-fill"></i>';
           }
-          linha.className = classe; // Aplica a classe à linha
+          linha.className = classe;
           linha.innerHTML = `
 
           <td>${chegada.situacao}</td>
@@ -77,19 +77,13 @@
         });
       }
       function chamarSenha(senha) {
-        // Encontra a pessoa pelo número da senha
         let chegada = chegadas.find((item) => item.senha === senha);
 
         if (chegada) {
-          // Atualiza a situação para "atendido"
           chegada.situacao = "atendido";
-          // Define o horário de atendimento
           chegada.horarioAtendimento = new Date().toLocaleString();
-
-          // Atualiza o local storage
           localStorage.setItem("chegadas", JSON.stringify(chegadas));
           atualizartabela();
-          // Redireciona para a página de atendidos
         }
       }
       atualizartabela();

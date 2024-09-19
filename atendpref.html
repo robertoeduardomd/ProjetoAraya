@@ -44,16 +44,13 @@
         let cpf = document.getElementById('cpf').value;
        
         const dataHora = new Date().toLocaleString();
-        // Obtém o número da última senha ou inicializa com 0
+       
         let ultimoNumero = parseInt(localStorage.getItem('ultimoNumeroSenha')) || 0;
   
-        // Incrementa o número da senha
+   
         let novaSenha = ultimoNumero + 1;
   
-        // Atualiza o número da última senha no Local Storage
         localStorage.setItem('ultimoNumeroSenha', novaSenha);
-  
-        // Salva os dados no Local Storage
         let chegadas = JSON.parse(localStorage.getItem('chegadas')) || [];
         chegadas.push({ nome, cpf, dataHora,
           horarioAtendimento: "Esperando atendimento", senha: novaSenha, tipo: 'Preferencial', situacao: 'espera' });
@@ -61,8 +58,6 @@
   
         alert(`Usuário registrado com sucesso! Sua senha é: ${novaSenha}`);
         document.getElementById('form-preferencial').reset();
-  
-        // Redirecionar para a página do painel após submeter
         window.location = 'painelchegada.html';
       });
       function playAudio(tipoaudio) {
@@ -71,7 +66,7 @@
           audio = document.getElementById("audioretirar");
         }
         if (audio) {
-          audio.currentTime = 0; // Reseta o áudio para tocar do início
+          audio.currentTime = 0; 
           audio.play();
         }
       }
