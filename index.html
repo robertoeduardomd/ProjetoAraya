@@ -38,6 +38,9 @@
       src="hospitalimgestetoscopio.jpg"
       alt=""
     />
+    <audio id="audioNormal" src="atendimentonormalvoz.mp3"></audio>
+    <audio id="audioPreferencial" src="atendimentopreferencialvoz.mp3"></audio>
+
     <h1>Hospital SEU CUIDADO</h1>
 
     <h2>Atendimento Hospitalar</h2>
@@ -45,13 +48,21 @@
     <br /><br />
 
     <form action="atendnormal.html" method="get">
-      <button class="btn normm" type="submit">Atendimento Normal</button>
+      <button class="btn normm" type="submit" onmouseover="playAudio('normal')">
+        Atendimento Normal
+      </button>
     </form>
     <br />
 
     <!-- Formulário que redireciona para Atendimento Preferencial -->
     <form action="atendpref.html" method="get">
-      <button class="btn pref" type="submit">Atendimento Preferencial</button>
+      <button
+        class="btn pref"
+        type="submit"
+        onmouseover="playAudio('preferencial')"
+      >
+        Atendimento Preferencial
+      </button>
     </form>
     <br />
 
@@ -63,5 +74,23 @@
     <a class="linkpainel" href="painelchegada.html"
       ><i class="bi bi-person-workspace"></i>Painel de espera</a
     >
+    <script>
+      // Função para tocar o áudio correspondente
+      function playAudio(tipoaudio) {
+        let audio;
+        if (tipoaudio === "normal") {
+          audio = document.getElementById("audioNormal");
+        } else if (tipoaudio === "preferencial") {
+          audio = document.getElementById("audioPreferencial");
+        } else if (tipoaudio === "virtual") {
+          audio = document.getElementById("audioVirtual");
+        }
+
+        if (audio) {
+          audio.currentTime = 0; // Reseta o áudio para tocar do início
+          audio.play();
+        }
+      }
+    </script>
   </body>
 </html>
