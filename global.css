@@ -17,7 +17,7 @@ body {
     background-size: 500%, 100%;
     animation: degradeanimacao 8s infinite alternate;
     transition: .3s;
-    cursor: url(Injection.ico), default;
+    cursor: url(inject4.png), cell;
 }
 
 
@@ -70,8 +70,12 @@ body {
     transition: .2s ease-in-out;
 }
 
+.normm {
+    cursor: url(neonlinkselect.cur), pointer;
+}
+
 .pref {
-    cursor: url(Purple.ico), pointer;
+    cursor: url(disabled.png), pointer;
 }
 
 .btnchamar:hover {
