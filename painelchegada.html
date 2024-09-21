@@ -13,41 +13,113 @@
   <body>
     <audio id="audiowii" src="wiimenu.mp3" autoplay playsinline></audio>
     <img
-      style="position: absolute; z-index: -1; opacity: 50%; object-fit: cover"
+      style="position: fixed; z-index: -1; opacity: 50%; object-fit: cover"
       width="100%"
       height="100%"
       src="saladeespera.jpg"
       alt=""
     />
     <a href="index.html" class="btnvoltar">↩</a>
+
     <h1>Painel de Espera</h1>
+    <div class="brolagem">
+      <table border="1">
+        <thead>
+          <tr>
+            <th>situacao</th>
+            <th>Nome</th>
 
-    <table border="1">
-      <thead>
-        <tr>
-          <th>situacao</th>
-          <th>Nome</th>
-
-          <th><i class="bi bi-clock-history"></i> Data e Horário(chegada)</th>
-          <th><i class="bi bi-clock-fill"></i> Data e Horário(atendimento)</th>
-          <th><i class="bi bi-ticket-perforated"></i> Senha</th>
-          <th>Tipo</th>
-        </tr>
-      </thead>
-      <tbody id="tabelaChegadas">
-        <!-- Linhas serão inseridas aqui pelo JavaScript -->
-      </tbody>
-    </table>
+            <th><i class="bi bi-clock-history"></i> Data e Horário(chegada)</th>
+            <th>
+              <i class="bi bi-clock-fill"></i> Data e Horário(atendimento)
+            </th>
+            <th><i class="bi bi-ticket-perforated"></i> Senha</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaChegadas"></tbody>
+      </table>
+    </div>
+    <h1>painel de atendimento medico</h1>
+    <div class="brolagem">
+      <table border="2">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Pressão Arterial</th>
+            <th>Temperatura Corporal</th>
+            <th>Sinais Vitais</th>
+            <th>Risco</th>
+            <th>Horário de Chegada</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaPacientesTriados"></tbody>
+      </table>
+    </div>
 
     <script>
-      // Obtém as chegadas do Local Storage e exibe na tabela
+      let pacientesTriados =
+        JSON.parse(localStorage.getItem("pacientestriados")) || [];
+
+      let tabelapacientetriado = document.getElementById(
+        "tabelaPacientesTriados"
+      );
+
+      function carregarTabelaPacientesTriados() {
+        tabelapacientetriado.innerHTML = "";
+
+        pacientesTriados.forEach((paciente) => {
+          let linha = document.createElement("tr");
+          let classeUrgencia = "";
+
+          switch (paciente.risco) {
+            case "naourgente":
+              classeUrgencia = "urgencia-nao-urgente";
+              break;
+            case "poucourgente":
+              classeUrgencia = "urgencia-pouco-urgente";
+              break;
+            case "urgente":
+              classeUrgencia = "urgencia-urgente";
+              break;
+            case "muitourgente":
+              classeUrgencia = "urgencia-muito-urgente";
+              break;
+            case "emergencia":
+              classeUrgencia = "urgencia-emergencia";
+              break;
+          }
+
+          linha.classList.add(classeUrgencia);
+
+          linha.innerHTML = `
+      <td>${paciente.tipo}</td>
+      <td>${paciente.nome}</td>
+      <td>${paciente.cpf}</td>
+      <td>${paciente.pressao}</td>
+      <td>${paciente.temperatura} °C</td>
+      <td>${paciente.sinais}</td>
+      <td>${paciente.risco}</td>
+      <td>${paciente.horario}</td>
+    `;
+
+          tabelapacientetriado.appendChild(linha);
+        });
+      }
+      document.addEventListener(
+        "DOMContentLoaded",
+        carregarTabelaPacientesTriados
+      );
+
       let chegadas = JSON.parse(localStorage.getItem("chegadas")) || [];
       let tabela = document.getElementById("tabelaChegadas");
 
       chegadas.forEach((chegada) => {
         let linha = document.createElement("tr");
 
-        let classe = ""; // Define a variável classe inicialmente
+        let classe = "";
 
         if (chegada.situacao === "espera") {
           linha.style.background = "linear-gradient(black,orange)";
@@ -65,10 +137,10 @@
         } else if (chegada.tipo === "virtual") {
           iconetipo = '<i class="bi bi-laptop"></i>';
         } else {
-          iconetipo = '<i class="bi bi-person-fill"></i>'; // Ícone padrão para outros tipos
+          iconetipo = '<i class="bi bi-person-fill"></i>';
         }
 
-        linha.className = classe; // Aplica a classe à linha
+        linha.className = classe;
         linha.innerHTML = `
 
           <td>${chegada.situacao}</td>

@@ -32,7 +32,7 @@
   </head>
   <body>
     <img
-      style="position: absolute; z-index: -1; opacity: 50%; object-fit: cover"
+      style="position: fixed; z-index: -1; opacity: 50%; object-fit: cover"
       width="100%"
       height="100%"
       src="hospitalimgestetoscopio.jpg"
@@ -53,8 +53,6 @@
       </button>
     </form>
     <br />
-
-    <!-- Formulário que redireciona para Atendimento Preferencial -->
     <form action="atendpref.html" method="get">
       <button
         class="btn pref"
@@ -66,7 +64,6 @@
     </form>
     <br />
 
-    <!-- Formulário que redireciona para Atendimento Virtual -->
     <form action="atendvirtual.html" method="get">
       <button class="btn" type="submit">Atendimento Virtual</button>
     </form>
@@ -75,7 +72,6 @@
       ><i class="bi bi-person-workspace"></i>Painel de espera</a
     >
     <script>
-      // Função para tocar o áudio correspondente
       function playAudio(tipoaudio) {
         let audio;
         if (tipoaudio === "normal") {
@@ -85,7 +81,7 @@
         }
 
         if (audio) {
-          audio.currentTime = 0; // Reseta o áudio para tocar do início
+          audio.currentTime = 0;
           audio.play();
         }
       }

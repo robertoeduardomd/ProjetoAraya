@@ -17,75 +17,202 @@
     <table border="1">
       <thead>
         <tr>
-          <th>situacao</th>
+          <th>Situacao</th>
           <th>Nome</th>
           <th>CPF</th>
           <th>Horário(chegada)</th>
           <th>Data e Hora(Atendimento)</th>
           <th>Senha</th>
           <th>Tipo</th>
-          <th>chamar</th>
+          <th>Chamar</th>
+          <th>Apagar</th>
         </tr>
       </thead>
       <tbody id="tabelaChegadas"></tbody>
     </table>
+    <form id="formTriagem">
+      <div id="triagem" class="triagem">
+        <div class="triagem-content">
+          <span class="fechar">&times;</span>
+          <h1>Triagem do Paciente</h1>
+          <br /><br />
 
+          <div class="campo">
+            <input type="text" id="pressao" name="pressao" required />
+            <label for="pressao">Pressão Arterial:</label>
+          </div>
+          <br /><br />
+          <div class="campo">
+            <input type="text" id="temperatura" name="temperatura" required />
+            <label for="temperatura">Temperatura:</label>
+          </div>
+          <br />
+          <br />
+          <div class="campo">
+            <input type="text" id="sinaisvitais" name="sinaisvitais" required />
+            <label for="sinaisvitais">Sinais Vitais:</label>
+          </div>
+          <br />
+          <br />
+          <div class="ladoalado">
+            <p for="risco">Classificação de risco:</p>
+            <select style="border-radius: 30px" name="risco" id="risco">
+              <option style="background: blue; color: white" value="naourgente">
+                NÃO URGENTE
+              </option>
+              <option
+                style="background: green; color: white"
+                value="poucourgente"
+              >
+                POUCO URGENTE
+              </option>
+              <option style="background: yellow" value="urgente">
+                URGENTE
+              </option>
+              <option
+                style="background: orangered; color: white"
+                value="muitourgente"
+              >
+                MUITO URGENTE
+              </option>
+              <option style="background: red; color: white" value="emergencia">
+                EMERGÊNCIA
+              </option>
+            </select>
+            <img
+              class="imgprotocolo"
+              width="400px"
+              height="200px"
+              src="protocolomanchester.jpg"
+              alt=""
+            />
+          </div>
+          <br />
+
+          <br />
+          <button class="btn" type="button" onclick="salvarTriagem()">
+            Salvar Triagem
+          </button>
+        </div>
+      </div>
+    </form>
     <script>
       let chegadas = JSON.parse(localStorage.getItem("chegadas")) || [];
       let tabela = document.getElementById("tabelaChegadas");
+      let pacienteAtual = null;
+      let novaListaPacientes =
+        JSON.parse(localStorage.getItem("pacientestriados")) || []; // Lista de pacientes já triados
+
       function atualizartabela() {
         tabela.innerHTML = "";
         chegadas.forEach((chegada) => {
           let linha = document.createElement("tr");
-          let classe = "";
-
           let iconesituacao = "";
+          let iconetipo =
+            chegada.tipo === "Preferencial"
+              ? '<i class="bi bi-person-wheelchair"></i>'
+              : '<i class="bi bi-person-fill"></i>';
 
-          if (chegada.situacao === "espera") {
-            linha.style.background = "linear-gradient(black,orange)";
-            linha.style.color = "white";
-          } else if (chegada.situacao === "atendido") {
-            iconesituacao = '<i class="bi bi-person-check-fill"></i>';
-            linha.style.background = "linear-gradient(blue,#047fff)";
-          } else if (chegada.situacao === "naoatendido") {
-            linha.style.background = "linear-gradient(black,red)";
-          }
-
-          let iconetipo = "";
-          if (chegada.tipo === "Preferencial") {
-            iconetipo =
-              '<i class="bi bi-puzzle-fill"></i> <i class="bi bi-person-wheelchair"></i>';
-          } else if (chegada.tipo === "virtual") {
-            iconetipo = '<i class="bi bi-laptop"></i>';
-          } else {
-            iconetipo = '<i class="bi bi-person-fill"></i>';
-          }
-          linha.className = classe;
           linha.innerHTML = `
+            <td>${chegada.situacao}</td>
+            <td>${chegada.nome}</td>
+            <td>${chegada.cpf}</td>
+            <td>${chegada.dataHora}</td>
+            <td>${chegada.horarioAtendimento || "---"}</td>
+            <td>${chegada.senha}</td>
+            <td>${iconetipo} ${chegada.tipo}</td>
+            <td><button class="btnchamar" onclick="abrirModal(${
+              chegada.senha
+            })"><i class="bi bi-check-circle"></i></button></td>
+            <td><button class="btnapagar" onclick="apagarpaciente('${
+              chegada.senha
+            }')">
+              <i class="bi bi-eraser-fill"></i></button></td>
 
-          <td>${chegada.situacao}</td>
-          <td>${chegada.nome}</td>
-          <td>${chegada.cpf}</td>
-          <td>${chegada.dataHora}</td>
-          <td>${chegada.horarioAtendimento}</td>
-          <td>${chegada.senha}</td>
-          <td>${iconetipo} ${chegada.tipo}</td>
-          
-           <td><button class="btnchamar" onclick="chamarSenha(${chegada.senha})"><i class="bi bi-check-circle"></i></button></td>
-        `;
+
+            `;
           tabela.appendChild(linha);
         });
       }
-      function chamarSenha(senha) {
-        let chegada = chegadas.find((item) => item.senha === senha);
 
-        if (chegada) {
-          chegada.situacao = "atendido";
-          chegada.horarioAtendimento = new Date().toLocaleString();
-          localStorage.setItem("chegadas", JSON.stringify(chegadas));
+      function abrirModal(senha) {
+        pacienteAtual = chegadas.find((item) => item.senha === senha);
+        if (pacienteAtual) {
+          document.getElementById("triagem").style.display = "block";
+
           atualizartabela();
         }
       }
+
+      function salvarTriagem() {
+        if (pacienteAtual.situacao != "atendido") {
+          pacienteAtual.situacao = "atendido";
+          pacienteAtual.horarioAtendimento = new Date().toLocaleString();
+          localStorage.setItem("chegadas", JSON.stringify(chegadas));
+          let pressao = document.getElementById("pressao").value;
+          let temperatura = document.getElementById("temperatura").value;
+          let sinais = document.getElementById("sinaisvitais").value;
+          let risco = document.getElementById("risco").value;
+
+          let pacienteTriado = {
+            tipo: pacienteAtual.tipo,
+            nome: pacienteAtual.nome,
+            cpf: pacienteAtual.cpf,
+            horario: pacienteAtual.horarioAtendimento,
+            senha: pacienteAtual.senha,
+            pressao: pressao,
+            temperatura: temperatura,
+            sinais: sinais,
+            risco: risco,
+          };
+
+          novaListaPacientes.push(pacienteTriado);
+          localStorage.setItem(
+            "pacientestriados",
+            JSON.stringify(novaListaPacientes)
+          );
+
+          fecharModal();
+          atualizartabela();
+          console.log(novaListaPacientes);
+        } else {
+          alert(
+            "o paciente" + pacienteAtual.nome + "ja foi atendido na triagem"
+          );
+        }
+      }
+
+      function fecharModal() {
+        document.getElementById("triagem").style.display = "none";
+        document.getElementById("formTriagem").reset();
+      }
+
+      function apagarpaciente(senhal) {
+        senhal = String(senhal);
+        console.log("Paciente a ser apagado:", senhal);
+        let pacienteexiste = chegadas.find(
+          (chegs) => String(chegs.senha) === senhal
+        );
+        if (pacienteexiste) {
+          chegadas = chegadas.filter(
+            (chegada) => String(chegada.senha) !== senhal
+          );
+          novaListaPacientes = novaListaPacientes.filter(
+            (paciente) => String(paciente.senha) !== senhal
+          );
+          localStorage.setItem("chegadas", JSON.stringify(chegadas));
+          localStorage.setItem(
+            "pacientestriados",
+            JSON.stringify(novaListaPacientes)
+          );
+          console.log("Pacientes depois da exclusão:", chegadas);
+          alert("Paciente removido com sucesso.");
+          atualizartabela();
+        } else {
+          alert("Erro: Senha não encontrada.");
+        }
+      }
+
       atualizartabela();
     </script>
   </body>
