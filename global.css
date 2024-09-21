@@ -215,6 +215,7 @@ form {
     align-items: center;
     flex-direction: column;
     overflow: auto;
+
     height: 600px;
     width: 100%;
 }
@@ -332,4 +333,18 @@ th {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media(max-width:850px) {
+    table {
+
+
+        font-size: 50%;
+        width: 500px;
+
+        align-items: baseline;
+        justify-content: baseline;
+        flex-direction: column;
+        overflow: auto;
+    }
 }
