@@ -33,7 +33,8 @@
     <form id="formTriagem">
       <div id="triagem" class="triagem">
         <div class="triagem-content">
-          <span class="fechar">&times;</span>
+          <br /><br />
+          <button class="btnfechar" onclick="fecharModal()">&times;</button>
           <h1>Triagem do Paciente</h1>
           <br /><br />
 
@@ -172,18 +173,19 @@
             JSON.stringify(novaListaPacientes)
           );
 
-          fecharModal();
           atualizartabela();
-          console.log(novaListaPacientes);
+
+          fecharModal();
         } else {
           alert(
             "o paciente " + pacienteAtual.nome + " ja foi atendido na triagem"
           );
+          fecharModal();
         }
       }
 
       function fecharModal() {
-        document.querySelector("triagem").style.display = "none";
+        document.getElementById("triagem").style.display = "none";
         document.getElementById("formTriagem").reset();
       }
 
