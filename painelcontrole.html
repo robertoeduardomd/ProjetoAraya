@@ -177,13 +177,13 @@
           console.log(novaListaPacientes);
         } else {
           alert(
-            "o paciente" + pacienteAtual.nome + "ja foi atendido na triagem"
+            "o paciente " + pacienteAtual.nome + " ja foi atendido na triagem"
           );
         }
       }
 
       function fecharModal() {
-        document.getElementById("triagem").style.display = "none";
+        document.querySelector("triagem").style.display = "none";
         document.getElementById("formTriagem").reset();
       }
 
