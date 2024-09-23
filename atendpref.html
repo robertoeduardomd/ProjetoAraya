@@ -56,7 +56,7 @@
           horarioAtendimento: "Esperando atendimento", senha: novaSenha, tipo: 'Preferencial', situacao: 'espera' });
         localStorage.setItem('chegadas', JSON.stringify(chegadas));
   
-        alert(`Usuário registrado com sucesso! Sua senha é: ${novaSenha}`);
+        alert(`Paciente ${nome} registrado com sucesso! Sua senha é: ${novaSenha}`);
         document.getElementById('form-preferencial').reset();
         window.location = 'index.html';
       });

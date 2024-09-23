@@ -53,7 +53,9 @@
           });
           localStorage.setItem("chegadas", JSON.stringify(chegadas));
 
-          alert(`Usuário registrado com sucesso! Sua senha é: ${novaSenha}`);
+          alert(
+            `Paciente ${nome} registrado com sucesso! Sua senha é: ${novaSenha}`
+          );
           document.getElementById("form-normal").reset();
 
           window.location = "index.html";
