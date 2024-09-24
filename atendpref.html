@@ -36,7 +36,6 @@
       
       <button class="btn" type="submit" onmouseover="playAudio('rs')">Retirar Senha</button>
     </form>
-
     <script>
       document.getElementById('form-preferencial').addEventListener('submit', function (e) {
         e.preventDefault();
@@ -45,7 +44,7 @@
        
         const dataHora = new Date().toLocaleString();
        
-        let ultimoNumero = parseInt(localStorage.getItem('ultimoNumeroSenha')) || 0;
+        let ultimoNumero = parseInt(localStorage.getItem('ultimoNumeroSenha')) || 699;
   
    
         let novaSenha = ultimoNumero + 1;
